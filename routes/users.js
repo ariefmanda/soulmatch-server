@@ -10,11 +10,10 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/create', Controller.createUser)
-router.put('/update/:id', verify.isLogin, Controller.updateUser)
 router.get('/all', verify.isLogin, Controller.findAllUser)
-router.get('/:id', verify.isLogin, Controller.findUser)
 router.post('/login', Controller.login)
 router.get('/myaccount', verify.isLogin, Controller.findMe)
-
+router.get('/:id', verify.isLogin, Controller.findUser)
+router.put('/update/:id', verify.isLogin, Controller.updateUser)
 
 module.exports = router;
