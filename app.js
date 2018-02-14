@@ -22,6 +22,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/soulmatch', function(){
+  console.log('Konak men, ehhhh Connect')
+});
+
+var cors = require('cors')
+app.use(cors())
+
 app.use('/', index);
 app.use('/users', users);
 
