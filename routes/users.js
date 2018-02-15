@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/create', Controller.createUser)
-router.put('/update/:id', verify.isLogin, image.multer.single('profpict'), image.uploadGCS, Controller.updateUser)
+router.put('/update', verify.isLogin, image.multer.single('profpict'), image.uploadGCS, Controller.updateUser)
 router.get('/all', verify.isLogin, Controller.findAllUser)
 router.post('/login', Controller.login)
 router.get('/myaccount', verify.isLogin, Controller.findMe)

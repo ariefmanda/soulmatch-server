@@ -23,17 +23,29 @@ let createUser = (req, res) => {
 }
 
 let updateUser = (req, res) => {
-    let objUpdateUser = {
+    let objUpdateUser = null
+
+    if(req.body.password){
+            objUpdateUser = {
+            name      : req.body.name,
+            age       : req.body.age,
+            password  : bcrypt.hashSync(req.body.password),
+            profpict  : req.file.cloudStoragePublicUrl,
+            gender    : req.body.gender,
+            height    : req.body.height,
+            weight    : req.body.weight
+        }
+    } else {
+        objUpdateUser = {
         name      : req.body.name,
         age       : req.body.age,
-        password  : bcrypt.hashSync(req.body.password),
         profpict  : req.file.cloudStoragePublicUrl,
         gender    : req.body.gender,
-        handphone : req.body.handphone,
         height    : req.body.height,
         weight    : req.body.weight
+        }
     }
-    User.findOneAndUpdate(req.params.id, objUpdateUser)
+    User.findByIdAndUpdate(req.user._id, objUpdateUser)
     .then(data => {
         res.send({message: `Profile updated`,
             data})
@@ -94,10 +106,9 @@ let login = (req, res) => {
 
 let findMe = (req, res) => {
     console.log('ini apa lagi sihhhhhhhhh');
-    
     console.log(req.user);
     console.log(req.user._id);
-    User.findById({userId : req.user._id})
+    User.findById(req.user._id)
     .then(data => {
         res.send({message:`sip`, 
         data})

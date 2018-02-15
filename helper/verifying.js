@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
             console.log(`ini dari middleware`, req.user._id);
             next()
         }else{
-            next(err)
+            res.json(err)
         }
     }
 
@@ -15,7 +15,7 @@ const jwt = require('jsonwebtoken')
         if(req.params.id==req.user.id){
             next()
         }else{
-            next
+            next()
         }
     }
 
