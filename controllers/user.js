@@ -7,20 +7,13 @@ const bcrypt  = require('bcryptjs')
 
 let createUser = (req, res) => {
     let objNewUser = {
-        name      : req.body.name,
-        age       : req.body.age,
-        password  : bcrypt.hashSync(req.body.password),
-        profpict  : req.body.profpict,
-        gender    : req.body.gender,
         handphone : req.body.handphone,
-        height    : req.body.height,
-        weight    : req.body.weight
+        password  : bcrypt.hashSync(req.body.password)
     }
     //console.log(req.body)
     User.create(objNewUser)
     .then(data => {
         res.send({
-            message:`Halo, ${req.body.name} jomblo ya?`,
             data
         })
     })
@@ -34,7 +27,7 @@ let updateUser = (req, res) => {
         name      : req.body.name,
         age       : req.body.age,
         password  : bcrypt.hashSync(req.body.password),
-        profpict  : req.body.profpict,
+        profpict  : req.file.cloudStoragePublicUrl,
         gender    : req.body.gender,
         handphone : req.body.handphone,
         height    : req.body.height,
@@ -113,7 +106,6 @@ let findMe = (req, res) => {
         next(err)
     })
 }
-
 
 module.exports = {
     createUser,
